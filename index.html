@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Νικόλαος Τσιούμας | Κλινικός Ψυχολόγος - Ψυχοθεραπευτής</title>
+    <meta name="description" content="Γνωσιακή Συμπεριφορική Θεραπεία (CBT) στην Αθήνα. Ο Νίκος Τσιούμας είναι Ψυχολόγος και Γνωσιακός Συμπεριφορικός Ψυχοθεραπευτής με έμφαση στα απτά αποτελέσματα.">
+    
+    <link rel="icon" href="https://github.com/agelmet/TSIOUMAS/blob/main/IMG_2536.JPG?raw=true" type="image/jpeg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --clr-bg: #F9F8F6; /* Warm Oatmeal/Cream */
+            --clr-primary: #5A7163; /* Soft Sage Green */
+            --clr-primary-dark: #45574C;
+            --clr-secondary: #8B9D90; /* Muted Slate/Green */
+            --clr-text-dark: #2C3531; /* Deep Charcoal */
+            --clr-text-light: #6B7270; /* Muted Gray */
+            --clr-white: #FFFFFF;
+            
+            --font-head: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-callig: 'Cormorant Garamond', serif;
+
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-sm: 0 4px 12px rgba(44, 53, 49, 0.05);
+            --shadow-md: 0 8px 24px rgba(44, 53, 49, 0.08);
+            --radius: 12px;
+        }
+
+        /* --- RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--clr-bg);
+            color: var(--clr-text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        
+        /* Typography */
+        h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 600; line-height: 1.2; color: var(--clr-text-dark); }
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.5rem; }
+        h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        p { margin-bottom: 1rem; color: var(--clr-text-light); }
+        .text-center { text-align: center; }
+        
+        /* Layout Utilities */
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        .section-padding { padding: 6rem 0; }
+        
+        /* --- COMPONENTS --- */
+        .btn {
+            display: inline-block;
+            background-color: var(--clr-primary);
+            color: var(--clr-white);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn:hover {
+            background-color: var(--clr-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(249, 248, 246, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-area { text-align: left; cursor: pointer; }
+        .logo-name {
+            font-family: var(--font-callig);
+            font-size: 2.2rem;
+            font-style: italic;
+            color: var(--clr-primary-dark);
+            line-height: 1;
+        }
+        .logo-title {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--clr-text-light);
+            text-transform: uppercase;
+        }
+
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--clr-primary); }
+        
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 2px; background: var(--clr-text-dark); transition: var(--transition); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: -2; opacity: 0.15;
+            animation: subtleZoom 20s infinite alternate linear;
+        }
+        @keyframes subtleZoom { from { transform: scale(1); } to { transform: scale(1.05); } }
+        
+        .hero-content {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+        }
+        .hero-text-box h1 { margin-bottom: 1.5rem; }
+        .hero-text-box p { font-size: 1.1rem; margin-bottom: 2.5rem; }
+        
+        .hero-image-wrapper { position: relative; }
+        .hero-image {
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-img-wrap { overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-md); }
+        .about-img { transition: transform 0.8s ease; width: 100%; }
+        .about-img-wrap:hover .about-img { transform: scale(1.03); }
+
+        /* --- SERVICES SECTION --- */
+        .services-bg { background-color: var(--clr-white); }
+        .services-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem;
+        }
+        .service-card {
+            background: var(--clr-bg); padding: 2.5rem; border-radius: var(--radius);
+            box-shadow: var(--shadow-sm); transition: var(--transition);
+        }
+        .service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+        .service-card h3 { color: var(--clr-primary-dark); font-size: 1.3rem; }
+        .service-list { margin-top: 1rem; font-size: 0.9rem; color: var(--clr-secondary); font-style: italic; margin-bottom: 1rem;}
+
+        /* --- APPROACH SECTION --- */
+        .approach-list { display: grid; gap: 1.5rem; margin-top: 2rem; }
+        .approach-item {
+            background: var(--clr-white); padding: 1.5rem; border-radius: var(--radius);
+            display: flex; gap: 1rem; align-items: flex-start; box-shadow: var(--shadow-sm);
+        }
+        .approach-icon { font-size: 1.5rem; }
+
+        /* --- SPACE GALLERY --- */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 3rem;
+        }
+        .gallery-item {
+            height: 250px; overflow: hidden; border-radius: var(--radius); cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: var(--transition);
+        }
+        .gallery-item:hover img { transform: scale(1.05); filter: brightness(0.9); }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000;
+            display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox img { max-width: 90%; max-height: 90vh; object-fit: contain; border-radius: 4px; }
+        .lightbox-close {
+            position: absolute; top: 20px; right: 30px; color: white; font-size: 40px;
+            cursor: pointer; line-height: 1;
+        }
+
+        /* --- REVIEWS CAROUSEL --- */
+        .reviews-bg { background-color: var(--clr-primary-dark); color: var(--clr-white); }
+        .reviews-bg h2 { color: var(--clr-white); }
+        .carousel-container {
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 2rem;
+            padding-bottom: 2rem; scrollbar-width: none;
+        }
+        .carousel-container::-webkit-scrollbar { display: none; }
+        .review-card {
+            min-width: 320px; max-width: 400px; background: rgba(255,255,255,0.05);
+            padding: 2rem; border-radius: var(--radius); scroll-snap-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .review-score { font-weight: bold; font-size: 1.2rem; color: #F4D03F; }
+        .review-name { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .review-date { font-size: 0.8rem; opacity: 0.6; margin-top: 1rem; display: block; }
+        .da-logo { width: 24px; height: 24px; }
+
+        /* --- CONTACT & FOOTER --- */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .contact-info { background: var(--clr-white); padding: 3rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+        .contact-item { margin-bottom: 1.5rem; }
+        .contact-item strong { display: block; color: var(--clr-primary-dark); font-family: var(--font-head); font-size: 1.2rem; }
+        
+        form { display: flex; flex-direction: column; gap: 1.5rem; }
+        input, textarea {
+            width: 100%; padding: 1rem; border: 1px solid #D1D5DB; border-radius: 8px;
+            font-family: var(--font-body); background: var(--clr-bg);
+        }
+        textarea { resize: vertical; min-height: 120px; }
+        input:focus, textarea:focus { outline: none; border-color: var(--clr-primary); }
+
+        footer { background: var(--clr-text-dark); color: var(--clr-white); padding: 3rem 0; text-align: center; }
+        .footer-links { margin-bottom: 2rem; }
+        .emergency-box { background: rgba(255,0,0,0.1); border: 1px solid rgba(255,100,100,0.3); padding: 1rem; border-radius: 8px; margin-bottom: 2rem; color: #ff9999; font-size: 0.9rem;}
+        .advon-credit { font-size: 0.8rem; opacity: 0.6; margin-top: 2rem; }
+        .advon-credit a { color: var(--clr-white); text-decoration: underline; }
+
+        /* --- ANIMATIONS (Scroll Reveal) --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s all cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .hero-content, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .hero-text-box { order: 2; text-align: center; }
+            .hero-image-wrapper { order: 1; max-width: 500px; margin: 0 auto; }
+            .nav-links {
+                position: absolute; top: 100%; left: 0; width: 100%; background: var(--clr-white);
+                flex-direction: column; padding: 2rem 0; box-shadow: var(--shadow-md);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: var(--transition); gap: 1.5rem;
+            }
+            .nav-links.nav-active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            .hamburger { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <div class="logo-area" onclick="window.scrollTo(0,0)">
+                <div class="logo-name">Νικόλαος Τσιούμας</div>
+                <div class="logo-title">ΚΛΙΝΙΚΟΣ ΨΥΧΟΛΟΓΟΣ - ΨΥΧΟΘΕΡΑΠΕΥΤΗΣ</div>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#about">ΣΧΕΤΙΚΑ</a></li>
+                    <li><a href="#services">ΥΠΗΡΕΣΙΕΣ</a></li>
+                    <li><a href="#space">Ο ΧΩΡΟΣ</a></li>
+                    <li><a href="#contact">ΕΠΙΚΟΙΝΩΝΙΑ</a></li>
+                    <li><a href="#contact" class="btn">ΚΛΕΙΣΤΕ ΡΑΝΤΕΒΟΥ</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span><span></span><span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <img src="https://github.com/agelmet/TSIOUMAS/blob/main/spaa.jpg?raw=true" alt="Χώρος Ψυχοθεραπείας" class="hero-bg" aria-hidden="true">
+        <div class="container hero-content">
+            <div class="hero-text-box reveal">
+                <h1>Απτά Αποτελέσματα &amp; Ουσιαστική Αλλαγή.</h1>
+                <p>Μια συνεργατική διαδικασία σε ένα απόλυτα ασφαλές περιβάλλον. Εφαρμόζοντας τη Γνωσιακή Συμπεριφορική Θεραπεία (CBT) για την ανάκτηση της ισορροπίας σας.</p>
+                <a href="#contact" class="btn">ΚΛΕΙΣΤΕ ΡΑΝΤΕΒΟΥ</a>
+            </div>
+            <div class="hero-image-wrapper reveal">
+                <img src="https://github.com/agelmet/TSIOUMAS/blob/main/IMG_2536.JPG?raw=true" alt="Νικόλαος Τσιούμας" class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="about">
+        <div class="container about-grid">
+            <div class="about-img-wrap reveal">
+                <img src="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_2.jpg?raw=true" alt="Πορτρέτο Νικόλαου Τσιούμα" class="about-img">
+            </div>
+            <div class="about-text reveal">
+                <h2>Γνωσιακή Συμπεριφορική Θεραπεία (CBT)</h2>
+                <p>Ο Νίκος Τσιούμας είναι Ψυχολόγος και Γνωσιακός Συμπεριφορικός Ψυχοθεραπευτής (CBT), συνιδιοκτήτης του Κέντρου Ψυχοθεραπείας και Συμβουλευτικής Ενηλίκων «Δια Ψυχής». Διαθέτει ένα εξαιρετικά ισχυρό ακαδημαϊκό υπόβαθρο: μετά το πτυχίο του στην Ψυχολογία (2014), αποφοίτησε με τιμητική διάκριση από το Μεταπτυχιακό πρόγραμμα στην Ψυχολογία της Υγείας του Cardiff Metropolitan University της Αγγλίας.</p>
+                <p>Η επαγγελματική του πορεία διακρίνεται από μια βαθιά αφοσίωση στη μετάδοση της γνώσης. Από το 2018 έως το 2025, εργάστηκε ως Καθηγητής σε προπτυχιακά και μεταπτυχιακά προγράμματα, γεγονός που τον καθιστά εξαιρετικό στην "ψυχοεκπαίδευση" των θεραπευόμενων του — στο να εξηγεί δηλαδή με απλά λόγια το "γιατί" νιώθουν όπως νιώθουν.</p>
+                <p>Σήμερα, αφοσιωμένος πλήρως στην κλινική πράξη, εργάζεται με ενήλικες που αντιμετωπίζουν αγχώδεις και συναισθηματικές διαταραχές. Για τον ίδιο, η ψυχοθεραπεία δεν είναι απλώς μια θεωρητική αναζήτηση της αυτογνωσίας. Είναι μια συνεργατική διαδικασία σε ένα απόλυτα ασφαλές περιβάλλον, με ξεκάθαρο στόχο την επίτευξη απτών αποτελεσμάτων και εμφανούς αλλαγής στην καθημερινότητα του ατόμου.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding services-bg" id="services">
+        <div class="container">
+            <div class="text-center reveal">
+                <h2>Υπηρεσίες &amp; Εξειδίκευση</h2>
+                <p>Ομαδοποιημένες προσεγγίσεις για στοχευμένη αντιμετώπιση.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <h3>Κατάθλιψη & Συναισθηματικές Διαταραχές</h3>
+                    <div class="service-list">Κατάθλιψη (50') | Αντιμετώπιση θλίψης | Διαταραχές Διάθεσης</div>
+                    <p>Η κατάθλιψη και η βαθιά μελαγχολία αντιμετωπίζονται αποτελεσματικά μέσω της CBT. Δουλεύουμε συνεργατικά για να εντοπίσουμε τις αρνητικές πεποιθήσεις. Μέσα από συγκεκριμένα, σταδιακά βήματα (συμπεριφορική ενεργοποίηση), ανακτάτε την ενέργειά σας και την ικανότητα να αντλείτε ξανά χαρά.</p>
+                </div>
+                <div class="service-card reveal">
+                    <h3>Διαχείριση Άγχους, Φοβιών & Κρίσεων Πανικού</h3>
+                    <div class="service-list">Άγχος & Στρες | Κρίσεις πανικού | Φοβίες | Τραύμα</div>
+                    <p>Η CBT είναι η πιο επιστημονικά τεκμηριωμένη μέθοδος για τις αγχώδεις διαταραχές. Μαθαίνετε πώς λειτουργεί ο μηχανισμός του πανικού, αποκτάτε πρακτικές τεχνικές αποφόρτισης και εκτίθεστε σταδιακά σε όσα φοβάστε, για να ανακτήσετε τον πλήρη έλεγχο.</p>
+                </div>
+                <div class="service-card reveal">
+                    <h3>Ψυχολογία της Υγείας & Ψυχοσωματικά</h3>
+                    <div class="service-list">Ψυχοσωματικά | Εθισμός στο διαδίκτυο | Σεξουαλική ζωή</div>
+                    <p>Αξιοποιώντας τις σπουδές στην Ψυχολογία της Υγείας, δίνουμε έμφαση στη σύνδεση σώματος και νου. Αντιμετωπίζουμε ψυχοσωματικά συμπτώματα (όταν το στρες μεταφράζεται σε πόνο) και σύγχρονες προκλήσεις, στοχεύοντας στην ολιστική ευεξία.</p>
+                </div>
+                <div class="service-card reveal">
+                    <h3>Ατομική Ψυχοθεραπεία Ενηλίκων</h3>
+                    <div class="service-list">Ατομικές συνεδρίες (50') | Διαταραχές Προσωπικότητας | Θυμός | Online</div>
+                    <p>Ένας προστατευμένος χώρος για τον έλεγχο εκρήξεων θυμού και γενικότερη αυτοβελτίωση. Για την καλύτερη εξυπηρέτησή σας, οι συνεδρίες μπορούν να πραγματοποιηθούν και διαδικτυακά (μέσω βιντεοκλήσης), εξασφαλίζοντας σταθερότητα από οπουδήποτε κι αν βρίσκεστε.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="approach">
+        <div class="container reveal">
+            <h2>Τι Κάνει την Προσέγγισή μου να Ξεχωρίζει</h2>
+            
+
+
+            <div class="approach-list">
+                <div class="approach-item">
+                    <div class="approach-icon">📚</div>
+                    <div>
+                        <h3>Η Εμπειρία του Ακαδημαϊκού Δασκάλου</h3>
+                        <p>Η επταετής πορεία μου ως Καθηγητής Ψυχολογίας μού έχει χαρίσει το χάρισμα της "μετάδοσης". Στη θεραπεία μας, θα κατανοήσετε πλήρως το "πώς" και το "γιατί" λειτουργεί ο εγκέφαλός σας, διότι πιστεύω πως η γνώση είναι δύναμη.</p>
+                    </div>
+                </div>
+                <div class="approach-item">
+                    <div class="approach-icon">🎯</div>
+                    <div>
+                        <h3>Προσανατολισμός στα Απτά Αποτελέσματα (CBT)</h3>
+                        <p>Η προσέγγισή μου δεν αναλώνεται σε αέναες αναλύσεις του παρελθόντος. Εστιάζουμε στο "εδώ και τώρα", βάζουμε μετρήσιμους στόχους και χρησιμοποιούμε εργαλεία που φέρνουν ορατή αλλαγή στη συμπεριφορά σας.</p>
+                    </div>
+                </div>
+                <div class="approach-item">
+                    <div class="approach-icon">🏥</div>
+                    <div>
+                        <h3>Κλινική Εμπειρία & Ενσυναίσθηση</h3>
+                        <p>Η πρακτική μου άσκηση σε βαριά κλινικά περιβάλλοντα (Γενικό Νοσοκομείο Νίκαιας, Κέντρο Ημέρας Alzheimer) διαμόρφωσε τον σεβασμό, την ψυχραιμία και την ενσυναίσθηση με την οποία αντιμετωπίζω κάθε θεραπευόμενο.</p>
+                    </div>
+                </div>
+                <div class="approach-item">
+                    <div class="approach-icon">🧬</div>
+                    <div>
+                        <h3>Εξειδίκευση στην Ψυχολογία της Υγείας</h3>
+                        <p>Ως κάτοχος MSc Health Psychology, δεν βλέπω το συναίσθημα αποκομμένο από το σώμα. Κατανοώ βαθιά τον τρόπο που το άγχος επηρεάζει τη βιολογία μας και αντιστρόφως.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding services-bg" id="space">
+        <div class="container">
+            <div class="text-center reveal">
+                <h2>Ο Χώρος</h2>
+                <p>Ένα ασφαλές, φιλόξενο και προστατευμένο περιβάλλον.</p>
+            </div>
+            <div class="gallery-grid reveal">
+                <div class="gallery-item"><img src="https://github.com/agelmet/TSIOUMAS/blob/main/sp2.jpg?raw=true" alt="Χώρος αναμονής" class="g-img" data-full="https://github.com/agelmet/TSIOUMAS/blob/main/sp2.jpg?raw=true"></div>
+                <div class="gallery-item"><img src="https://github.com/agelmet/TSIOUMAS/blob/main/spaa.jpg?raw=true" alt="Γραφείο" class="g-img" data-full="https://github.com/agelmet/TSIOUMAS/blob/main/spaa.jpg?raw=true"></div>
+                <div class="gallery-item"><img src="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_10.jpg?raw=true" alt="Λεπτομέρεια χώρου" class="g-img" data-full="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_10.jpg?raw=true"></div>
+                <div class="gallery-item"><img src="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_3.jpg?raw=true" alt="Βιβλιοθήκη" class="g-img" data-full="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_3.jpg?raw=true"></div>
+                <div class="gallery-item"><img src="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_4.jpg?raw=true" alt="Συνεδρία" class="g-img" data-full="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_4.jpg?raw=true"></div>
+                <div class="gallery-item"><img src="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_5.jpg?raw=true" alt="Χώρος" class="g-img" data-full="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_5.jpg?raw=true"></div>
+                <div class="gallery-item"><img src="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_6.jpg?raw=true" alt="Γραφείο 2" class="g-img" data-full="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_6.jpg?raw=true"></div>
+                <div class="gallery-item"><img src="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_7.jpg?raw=true" alt="Γραφείο 3" class="g-img" data-full="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_7.jpg?raw=true"></div>
+                <div class="gallery-item"><img src="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_8.jpg?raw=true" alt="Γραφείο 4" class="g-img" data-full="https://github.com/agelmet/TSIOUMAS/blob/main/Νικόλαος_Τσιούμας_8.jpg?raw=true"></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lb-close">&times;</span>
+        <img src="" alt="Full size image" id="lb-img">
+    </div>
+
+    <section class="section-padding reviews-bg" id="reviews">
+        <div class="container">
+            <h2 class="text-center reveal">Τι Λένε οι Θεραπευόμενοι</h2>
+            <div class="carousel-container reveal" id="review-carousel">
+                </div>
+        </div>
+    </section>
+
+    <section class="section-padding" id="contact">
+        <div class="container contact-grid">
+            <div class="contact-form-area reveal">
+                <h2>Επικοινωνία</h2>
+                <p>Κάντε το πρώτο βήμα. Συμπληρώστε τη φόρμα ή χρησιμοποιήστε τα στοιχεία επικοινωνίας για να κλείσετε το ραντεβού σας.</p>
+                <form action="#" method="POST">
+                    <input type="text" placeholder="Ονοματεπώνυμο" required aria-label="Ονοματεπώνυμο">
+                    <input type="email" placeholder="Email" required aria-label="Email">
+                    <textarea placeholder="Το μήνυμά σας..." required aria-label="Μήνυμα"></textarea>
+                    <button type="submit" class="btn">ΑΠΟΣΤΟΛΗ ΜΗΝΥΜΑΤΟΣ</button>
+                </form>
+            </div>
+            
+            <div class="contact-info reveal">
+                <div class="contact-item">
+                    <strong>ΔΙΕΥΘΥΝΣΗ</strong>
+                    Θέτιδος 10, Ιλίσια, Αττική
+                </div>
+                <div class="contact-item">
+                    <strong>ΤΗΛΕΦΩΝΟ</strong>
+                    697 717 8575
+                </div>
+                <div class="contact-item">
+                    <strong>ΩΡΑΡΙΟ ΛΕΙΤΟΥΡΓΙΑΣ</strong>
+                    ΔΕΥΤΕΡΑ - ΣΑΒΒΑΤΟ ΚΑΤΟΠΙΝ ΡΑΝΤΕΒΟΥ
+                </div>
+                
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #eee;">
+                    <p style="margin-bottom: 0.5rem; color: var(--clr-text-dark);"><strong>Κλείστε ραντεβού online:</strong></p>
+                    <a href="https://www.doctoranytime.gr/d/Psychologos/tsioumas-nikolaos" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 10px;">
+                        <img src="https://www.doctoranytime.gr/images/logo-rebranding.svg" alt="DoctorAnytime Logo" style="width: 150px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="emergency-box">
+                <strong>ΕΠΕΙΓΟΥΣΑ ΑΝΑΓΚΗ;</strong> Αν βιώνετε κρίση ή σκέψεις αυτοκτονίας, παρακαλούμε καλέστε άμεσα τη Γραμμή Παρέμβασης για την Αυτοκτονία στο <strong>1018</strong> ή το ΕΚΑΒ στο <strong>166</strong>. Δεν είστε μόνοι.
+            </div>
+            <div class="logo-name" style="color: white; margin-bottom: 1rem;">Νικόλαος Τσιούμας</div>
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> Κέντρο Ψυχοθεραπείας «Δια Ψυχής». Όλα τα δικαιώματα διατηρούνται.</p>
+            <div class="advon-credit">
+                Designed by <a href="https://advonmedia.com" target="_blank" rel="noopener">Advon Media</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. Mobile Navigation Toggle ---
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+        });
+
+        // Close nav when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('nav-active');
+            });
+        });
+
+        // --- 2. Scroll Reveal Animations ---
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger on load
+
+        // --- 3. Lightbox Functionality ---
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+        const lbClose = document.getElementById('lb-close');
+        const galleryImages = document.querySelectorAll('.g-img');
+
+        galleryImages.forEach(img => {
+            img.addEventListener('click', () => {
+                lightbox.classList.add('active');
+                lbImg.src = img.getAttribute('data-full');
+            });
+        });
+
+        lbClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if(e.target !== lbImg) {
+                lightbox.classList.remove('active');
+            }
+        });
+
+        // --- 4. Reviews Data & Injection ---
+        const reviews = [
+            { name: "ILNTA", score: "10.0", text: "Ο Νίκος εξαιρετικός επαγγελματίας, με μεγάλη ενσυναίσθηση και ικανότητα να δημιουργεί άμεσα ένα αίσθημα ασφάλειας... Τον συστήνω ανεπιφύλακτα.", date: "22 Νοεμβρίου 2025" },
+            { name: "Αλεξανδρος", score: "10.0", text: "Εκτός από ικανότατος επιστήμονας είναι και εκπληκτικός άνθρωπος. Είναι εμφανές ότι ενδιαφέρεται σε βάθος. Τον συνιστώ ανεπιφύλακτα.", date: "19 Νοεμβρίου 2025" },
+            { name: "katerina", score: "10.0", text: "Ο κ. Τσιούμας Νικόλαος είναι ο ψυχολόγος του μικρού μου γιου... κέρδισε την εμπιστοσύνη του χωρίς πίεση, με σεβασμό και αληθινό ενδιαφέρον.", date: "17 Νοεμβρίου 2025" },
+            { name: "Κωνσταντίνα", score: "10.0", text: "Σέβεται και κατανοεί τον θεραπευόμενο . Από τότε που ξεκίνησα ένιωθα ότι μπορούσα να τον εμπιστευτώ... πολύ ικανός ψυχολόγος.", date: "12 Νοεμβρίου 2025" },
+            { name: "Nanuka", score: "10.0", text: "Η καλύτερη σύσταση θεραπευτή που θα μπορούσα να προτείνω σε όλη την εμβέλεια της θεραπείας που εχω και την εμπειρία μου μέχρι και σημερα !", date: "12 Νοεμβρίου 2025" },
+            { name: "Antonis", score: "10.0", text: "Εξαιρετικος επιστήμονας, μου ενέπνευσε πολύ γρήγορα εμπιστοσύνη, ώστε να ανοιχτώ... Συνεπής πάντα στα ραντεβού μας.", date: "11 Νοεμβρίου 2025" },
+            { name: "angel", score: "10.0", text: "Ειναι πολύ επεξηγηματικός, αναλυτικός και κάθε συνεδρία μαζί του είναι ευκαιρία για προσωπική ανάπτυξη και εξέλιξη. Εξαιρετικός!", date: "11 Νοεμβρίου 2025" },
+            { name: "Χριστίνα", score: "10.0", text: "Από την πρώτη στιγμή ένιωσα άνετη και ότι με καταλαβαίνει πραγματικά... έχει ουσιαστικό τρόπο να σε καθοδηγεί.", date: "11 Νοεμβρίου 2025" },
+            { name: "ΦΕΒΡΩΝΙΑ", score: "10.0", text: "Νιώθω πολύ τυχερή που επέλεξα τον κ. Τσιούμα... νιώθω ευγνωμοσύνη για όσα με έχει βοηθήσει να καταφέρω ως τώρα.", date: "11 Νοεμβρίου 2025" },
+            { name: "Dimitris", score: "10.0", text: "Ο άνθρωπος που κατάφερε να μου αλλάξει οπτική πολλών ετών... Η γνωστική θεραπεία με την οποία δουλεύει, είναι η καλύτερη στα δικά μου μέτρα.", date: "11 Νοεμβρίου 2025" }
+        ];
+
+        const carousel = document.getElementById('review-carousel');
+        const daLogoSrc = "https://www.doctoranytime.gr/images/logo-rebranding.svg";
+
+        reviews.forEach(rev => {
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            card.innerHTML = `
+                <div class="review-header">
+                    <div>
+                        <span class="review-score">${rev.score}</span>
+                        <span class="review-name"> | ${rev.name}</span>
+                    </div>
+                    <img src="${daLogoSrc}" class="da-logo" alt="DoctorAnytime">
+                </div>
+                <p style="font-size: 0.95rem; font-style: italic;">"${rev.text}"</p>
+                <span class="review-date">${rev.date}</span>
+            `;
+            carousel.appendChild(card);
+        });
+    </script>
+</body>
+</html>
