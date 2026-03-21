@@ -226,21 +226,23 @@
 
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 0.75rem;
-    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+    font-size: clamp(0.55rem, 2vw, 0.65rem); letter-spacing: 0.25em; text-transform: uppercase;
     color: var(--accent-mute); margin-bottom: 1.5rem;
     opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+    word-break: break-word;
   }
   .hero-eyebrow::before {
-    content: ''; width: 32px; height: 1px; background: var(--accent);
+    content: ''; width: 32px; height: 1px; background: var(--accent); flex-shrink: 0;
   }
 
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.2rem, 6vw, 5.8rem);
+    font-size: clamp(2.4rem, 8vw, 5.8rem);
     font-weight: 300; line-height: 1.05;
     color: var(--warm-white);
     margin-bottom: 1.2rem;
     opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+    word-wrap: break-word;
   }
   .hero-title em {
     font-style: italic; color: var(--accent-mute);
@@ -355,6 +357,9 @@
     margin-top: 0.25rem; line-height: 1.4;
   }
 
+  .mobile-only { display: none; }
+  .desktop-only { display: block; }
+
   /* scroll indicator */
   .scroll-indicator {
     position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
@@ -388,7 +393,7 @@
     font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--accent); margin-bottom: 1rem;
   }
-  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--accent); flex-shrink: 0; }
 
   .section-title {
     font-family: 'Cormorant Garamond', serif;
@@ -422,21 +427,21 @@
   }
   .about-img-frame img {
     width: 100%; display: block;
-    aspect-ratio: 1 / 1; /* Added for symmetry */
-    object-fit: cover;   /* Ensures image fills the symmetric square perfectly */
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
     filter: saturate(0.9);
     transition: transform 0.8s cubic-bezier(0.2,1,0.3,1);
   }
   .about-img-frame:hover img { transform: scale(1.04); }
   .about-img-accent {
     position: absolute; top: -24px; left: -24px;
-    width: 160px; height: 160px; /* Made identically sized for symmetry */
+    width: 160px; height: 160px;
     border: 1px solid var(--border);
     pointer-events: none;
   }
   .about-img-accent-2 {
     position: absolute; bottom: -24px; right: -24px;
-    width: 160px; height: 160px; /* Made identically sized for symmetry */
+    width: 160px; height: 160px;
     border: 1px solid var(--border);
     pointer-events: none;
   }
@@ -645,8 +650,6 @@
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 6rem; align-items: end; margin-bottom: 4rem;
   }
-  
-  /* Symmetrical 3x3 Grid */
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -711,7 +714,7 @@
   .lightbox-close:hover { border-color: white; background: rgba(255,255,255,0.1); }
 
   /* ─── REVIEWS ────────────────────────────── */
-  #reviews { background: var(--ink); overflow: hidden; }
+  #reviews { background: var(--ink); }
   #reviews .section-title { color: var(--cream); }
   #reviews .eyebrow { color: var(--accent-mute); }
   #reviews .eyebrow::before { background: var(--accent-mute); }
@@ -736,22 +739,35 @@
   }
   .reviews-stars { color: var(--rose-dust); font-size: 0.9rem; letter-spacing: 2px; }
 
-  .carousel-wrapper { position: relative; }
+  .carousel-wrapper { position: relative; width: 100%; }
+  
+  /* Changed track to native scroll-snap for perfect mobile swiping */
   .carousel-track {
     display: flex; gap: 1.5rem;
-    overflow-x: hidden;
-    cursor: grab;
-    user-select: none;
-    transition: transform 0.5s cubic-bezier(0.2,1,0.3,1);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1.5rem; /* Space for scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.2) rgba(255,255,255,0.05);
   }
-  .carousel-track:active { cursor: grabbing; }
+  .carousel-track::-webkit-scrollbar { height: 6px; }
+  .carousel-track::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
+  .carousel-track::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
   .review-card {
-    flex: 0 0 420px;
+    flex: 0 0 calc(100% - 2rem);
+    max-width: 420px;
+    scroll-snap-align: start;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.07);
     padding: 2.5rem;
     position: relative;
     transition: border-color 0.3s, background 0.3s;
+  }
+  @media (min-width: 768px) {
+    .review-card { flex: 0 0 420px; }
   }
   .review-card:hover {
     border-color: rgba(139,157,195,0.3);
@@ -796,7 +812,7 @@
   .review-date { font-size: 0.65rem; color: rgba(255,255,255,0.3); margin-top: 0.2rem; }
 
   .carousel-controls {
-    display: flex; gap: 0.75rem; margin-top: 2.5rem; align-items: center; justify-content: space-between;
+    display: flex; gap: 0.75rem; margin-top: 1.5rem; align-items: center; justify-content: space-between;
   }
   .carousel-btns { display: flex; gap: 0.75rem; }
   .carousel-btn {
@@ -807,19 +823,9 @@
     transition: all 0.3s;
   }
   .carousel-btn:hover { border-color: white; background: rgba(255,255,255,0.07); }
-  .carousel-dots { display: flex; gap: 6px; }
-  .carousel-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    cursor: pointer; transition: all 0.3s;
-    border: none;
-  }
-  .carousel-dot.active { background: var(--accent); width: 24px; border-radius: 3px; }
 
   .doctoranytime-link {
     display: inline-flex; align-items: center; gap: 0.6rem;
-    margin-top: 2rem;
     font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
     color: var(--accent-mute); text-decoration: none;
     border-bottom: 1px solid rgba(139,157,195,0.3);
@@ -964,8 +970,9 @@
 
   /* ─── RESPONSIVE ─────────────────────────── */
   @media (max-width: 1024px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 4rem; }
-    .hero-portrait-wrap { display: none; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .desktop-only { display: none !important; }
+    .mobile-only { display: block !important; margin: 2rem 0; width: 85%; max-width: 380px; }
     .about-grid { grid-template-columns: 1fr; gap: 4rem; }
     .about-credentials { right: 0; bottom: 0; position: relative; width: 100%; margin-top: 1rem; }
     .services-grid { grid-template-columns: 1fr; }
@@ -977,16 +984,26 @@
     .nav-links { display: none; }
     .hamburger { display: flex; }
   }
+  
   @media (max-width: 640px) {
+    /* Fixed bad italics on mobile */
+    em, .hero-title em, .section-title em, .about-quote, .review-text, .review-quote-mark, .cta-banner-text em {
+      font-style: normal !important;
+    }
+
     .section-pad { padding: 80px 0; }
-    .hero-title { font-size: 2.8rem; }
+    
+    .mobile-only { width: 100%; max-width: none; margin: 1.5rem 0; }
+    
     .services-grid { grid-template-columns: 1fr; }
     .diff-grid { grid-template-columns: 1fr; }
     .approach-steps { grid-template-columns: 1fr; }
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
     .pillars-grid { grid-template-columns: 1fr; }
+    
     .reviews-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-    .review-card { flex: 0 0 300px; }
+    .carousel-controls { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    
     footer { flex-direction: column; text-align: center; }
     .cta-banner { padding: 2.5rem; }
     .hero-actions { flex-direction: column; }
@@ -1041,6 +1058,20 @@
         Γνωσιακή Συμπεριφορική<br>Θεραπεία
         <em>Απτά Αποτελέσματα.</em>
       </h1>
+
+      <div class="hero-portrait-wrap mobile-only">
+        <div class="hero-portrait-frame">
+          <img src="https://github.com/agelmet/TSIOUMAS/blob/main/IMG_2536.JPG?raw=true" alt="Νικόλαος Τσιούμας" loading="eager">
+          <div class="hero-portrait-overlay">
+            <div class="hero-portrait-tag">Ψυχολόγος · Ψυχοθεραπευτής CBT</div>
+          </div>
+        </div>
+        <div class="hero-stat" style="bottom: 15px; left: 15px;">
+          <div class="hero-stat-num">10/10</div>
+          <div class="hero-stat-label">Μεση Βαθμολογια</div>
+        </div>
+      </div>
+
       <p class="hero-subtitle">
         Δεν αναλωνόμαστε σε ατέρμονες αναλύσεις. Εστιάζουμε στο «εδώ και τώρα», βάζουμε μετρήσιμους στόχους και φέρνουμε ορατή αλλαγή στην καθημερινότητά σας.
       </p>
@@ -1055,7 +1086,7 @@
       </div>
     </div>
 
-    <div class="hero-portrait-wrap">
+    <div class="hero-portrait-wrap desktop-only">
       <div class="hero-portrait-frame">
         <img src="https://github.com/agelmet/TSIOUMAS/blob/main/IMG_2536.JPG?raw=true" alt="Νικόλαος Τσιούμας" loading="eager">
         <div class="hero-portrait-overlay">
@@ -1292,7 +1323,6 @@
     </div>
 
     <div class="gallery-grid reveal">
-      
       <div class="gallery-item" onclick="openLightbox('https://github.com/agelmet/TSIOUMAS/blob/main/sp2.jpg?raw=true')">
         <img src="https://github.com/agelmet/TSIOUMAS/blob/main/sp2.jpg?raw=true" alt="Χώρος 1" loading="lazy">
         <div class="gallery-item-overlay">
@@ -1747,55 +1777,23 @@
     if (e.key === 'Escape') closeLightbox();
   });
 
-  // ── CAROUSEL
+  // ── REVIEWS CAROUSEL SCROLL
   const track = document.getElementById('carouselTrack');
-  const cards = track.querySelectorAll('.review-card');
-  let currentIdx = 0;
-  const visibleCount = () => window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
 
-  function getCardWidth() {
-    const card = cards[0];
-    const style = getComputedStyle(track);
-    const gap = parseFloat(style.gap) || 24;
-    return card.offsetWidth + gap;
-  }
-
-  function goTo(idx) {
-    const max = cards.length - visibleCount();
-    currentIdx = Math.max(0, Math.min(idx, max));
-    track.style.transform = `translateX(-${currentIdx * getCardWidth()}px)`;
-    updateDots();
-  }
-
-  document.getElementById('prevBtn').addEventListener('click', () => goTo(currentIdx - 1));
-  document.getElementById('nextBtn').addEventListener('click', () => goTo(currentIdx + 1));
-
-  // dots (optional — not rendered, but could be added)
-  function updateDots() {}
-
-  // drag carousel
-  let isDragging = false, startX = 0, scrollLeft = 0;
-  track.addEventListener('mousedown', e => {
-    isDragging = true;
-    startX = e.pageX;
-    track.style.cursor = 'grabbing';
-  });
-  document.addEventListener('mouseup', e => {
-    if (!isDragging) return;
-    isDragging = false;
-    track.style.cursor = 'grab';
-    const diff = e.pageX - startX;
-    if (Math.abs(diff) > 50) {
-      goTo(diff < 0 ? currentIdx + 1 : currentIdx - 1);
-    }
+  prevBtn.addEventListener('click', () => {
+    const cardWidth = track.querySelector('.review-card').offsetWidth;
+    const gap = 24; // 1.5rem
+    track.scrollBy({ left: -(cardWidth + gap), behavior: 'smooth' });
   });
 
-  // auto-advance
-  let autoTimer = setInterval(() => goTo(currentIdx + 1 > cards.length - visibleCount() ? 0 : currentIdx + 1), 6000);
-  track.addEventListener('mouseenter', () => clearInterval(autoTimer));
-  track.addEventListener('mouseleave', () => {
-    autoTimer = setInterval(() => goTo(currentIdx + 1 > cards.length - visibleCount() ? 0 : currentIdx + 1), 6000);
+  nextBtn.addEventListener('click', () => {
+    const cardWidth = track.querySelector('.review-card').offsetWidth;
+    const gap = 24; // 1.5rem
+    track.scrollBy({ left: (cardWidth + gap), behavior: 'smooth' });
   });
+
 </script>
 </body>
 </html>
